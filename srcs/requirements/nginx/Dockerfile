@@ -14,7 +14,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN=jaimmart.42.fr"
 
 # Copia archivos o directorios desde el sistema de archivos del host al sistema de archivos del contenedor.
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
 # Informa a Docker que el contenedor escucha en puertos de red específicos en tiempo de ejecución.
 EXPOSE 443
