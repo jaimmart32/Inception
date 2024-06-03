@@ -10,7 +10,7 @@ RUN mkdir -p /etc/ssl/certs /etc/ssl/private
 # Genera un certificado SSL auto-firmado y una clave privada
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/ssl/private/jaimmart.42.fr.key \
-    -out /etc/ssl/certs/jaimmart.42.fr.cert \
+    -out /etc/ssl/certs/jaimmart.42.fr.crt \
     -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN=jaimmart.42.fr"
 
 # Copia archivos o directorios desde el sistema de archivos del host al sistema de archivos del contenedor.
