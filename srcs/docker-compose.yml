@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./requirements/nginx
+    container_name: nginx
+    ports:
+      -"443:443"
+    volumes:
+      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./requirements/nginx/ssl:/etc/ssl
+    networks:
+      - wp-network
+    depends_on:
+      - wordpress
+    restart: always
+
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress
+    container_name: wordpress
+    expose:
+      - "9000"
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./requirements/wordpress/conf/www.conf:/etc/php/7.4/fpm/pool.d/www.conf
+    networks:
+      - wp-network
+    env_file:
+      - .env
+      
+    depends_on:
+      - db
+    restart: always
+
+
+  db:
+    build:
+      context: ./requirements/mariadb
+    container_name: mariadb
+    expose:
+      - "3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wp-network
+    env_file:
+      - .env
+      
+    restart: always
+
+
+volumes:
+  wordpress_data:
+  db_data:
+
+networks:
+  wp-network:
