@@ -1,23 +1,22 @@
 #!/bin/bash
-set -e
 
 # Inicializa la base de datos si no esta ya inicializada
-if [ ! -d "/var/lib/mysql"]; then
+if [ ! -d "/var/lib/mysql/mysql"]; then
     echo "Inicializando base de datos..."
     mysqld --initialize-insecure --user=mysql
     echo "Base de datos inicializada."
 
     # Iniciar el servidor MariaDB en segundo plano
-    mysql_safe --skip-networking &
+    mysqld_safe --skip-networking &
 
     # Esperar a que se inicie
     sleep 5
 
     # Crear la base de datos y el usuario para WordPress
     mysql -uroot <<-EOSQL
-        CREATE DATABASE wordpress;
-        CREATE USER 'wordpress_user'@'%' IDENTIFIED BY 'wordpress_password';
-        GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress_user'@'%';
+        CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
+        CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+        GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
         FLUSH PRIVILEGES;
 EOSQL
     
