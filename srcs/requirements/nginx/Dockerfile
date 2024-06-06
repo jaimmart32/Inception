@@ -13,8 +13,8 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -out /etc/ssl/certs/jaimmart.42.fr.crt \
     -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN=jaimmart.42.fr"
 
-# Copia el archivo de configuración personalizado a la ubicación principal de NGINX
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+# Copia el archivo de configuración personalizado a la ubicación de configuraciones adicionales de NGINX
+COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
 # Informa a Docker que el contenedor escucha en puertos de red específicos en tiempo de ejecución.
 EXPOSE 443
