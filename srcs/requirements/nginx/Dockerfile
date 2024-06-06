@@ -18,8 +18,8 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 # Copia el archivo de configuracion personalizado a sites-available
 COPY ./conf/nginx.conf /etc/nginx/sites-available/default
-# Crea un enlace simbólico en sites-enabled para acceder activar la configuracion personalizada
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+# Elimina el enlace o archivo existente y luego crea un enlace simbólico en sites-enabled para acceder activar la configuracion personalizada
+RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
 # Informa a Docker que el contenedor escucha en puertos de red específicos en tiempo de ejecución.
 EXPOSE 443
