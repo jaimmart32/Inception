@@ -1,7 +1,11 @@
 #!/bin/bash
 
+# Crear el directorio /run/mysqld si no existe
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
+
 # Inicializa la base de datos si no esta ya inicializada
-if [ ! -d "/var/lib/mysql/mysql"]; then
+if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Inicializando base de datos..."
     mysqld --initialize-insecure --user=mysql
     echo "Base de datos inicializada."
