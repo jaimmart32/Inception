@@ -13,16 +13,8 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -out /etc/ssl/certs/jaimmart.42.fr.crt \
     -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN=jaimmart.42.fr"
 
-# Copia archivos o directorios desde el sistema de archivos del host al sistema de archivos del contenedor.
-#COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
-
-# Copia el archivo de configuracion personalizado a conf.d
-COPY ./conf/nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copia el archivo de configuracion personalizado a sites-available
-#COPY ./conf/nginx.conf /etc/nginx/sites-available/default
-# Elimina el enlace o archivo existente y luego crea un enlace simbólico en sites-enabled para acceder activar la configuracion personalizada
-#RUN rm -f /etc/nginx/sites-enabled/default && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+# Copia el archivo de configuración personalizado a la ubicación principal de NGINX
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 # Informa a Docker que el contenedor escucha en puertos de red específicos en tiempo de ejecución.
 EXPOSE 443
