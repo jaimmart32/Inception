@@ -17,8 +17,8 @@ RUN mkdir -p /var/www/html
 RUN curl -O https://wordpress.org/latest.tar.gz \
     && tar -xzvf latest.tar.gz \
     && rm latest.tar.gz \
-    && mv wordpress/* /var/www/html \
-    && chown -R www-data:www-data /var/www/html/
+    && mv wordpress/* /var/www/html/ \
+    && chown -R www-data:www-data /var/www/html
 
 # Configurar PHP-FPM
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
