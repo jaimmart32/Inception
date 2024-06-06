@@ -50,4 +50,5 @@ volumes:
 
 networks:
   wp-network:
+    name: wp-network
 
