@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /var/www/html
+
 # Descargar y configurar WordPress
 RUN curl -O https://wordpress.org/latest.tar.gz \
     && tar -xzvf latest.tar.gz \
