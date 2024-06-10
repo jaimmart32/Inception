@@ -3,6 +3,7 @@
 # Crear el directorio /run/mysqld si no existe
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
+chmod 777 /var/lib/mysql
 
 # Inicializa la base de datos si no está ya inicializada
 if [ ! -d "/var/lib/mysql/mysql" ]; then
