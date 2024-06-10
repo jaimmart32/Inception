@@ -23,7 +23,6 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
         CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
         GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
-        FLUSH PRIVILEGES;
         ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
         FLUSH PRIVILEGES;
 EOSQL
@@ -35,6 +34,7 @@ EOSQL
 fi
 
 exec "$@"
+
 
 # Si el directorio de datos de MariaDB no contiene una instalación de MySQL/MariaDB (/var/lib/mysql/mysql), inicializa la base de datos.
 # mysqld --initialize-insecure --user=mysql: Inicializa la base de datos sin contraseña para el usuario root.
