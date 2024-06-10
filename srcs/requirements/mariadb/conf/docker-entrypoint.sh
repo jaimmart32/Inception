@@ -30,7 +30,7 @@ EOSQL
     echo "Base de datos y usuario creados."
     
     # Detener el servidor MariaDB
-    mysqladmin -uroot shutdown
+    mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} shutdown
 fi
 
 exec "$@"
