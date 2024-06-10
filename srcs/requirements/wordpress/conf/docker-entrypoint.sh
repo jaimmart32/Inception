@@ -25,7 +25,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
     # Esperar a que MariaDB esté listo
     echo "Esperando a que MariaDB esté listo..."
-    while ! mysql ping -h"$WORDPRESS_DB_HOST" -u"$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" -e "SELECT 1" $WORDPRESS_DB_NAME &> /dev/null; do
+    while ! mysqladmin ping -h"$WORDPRESS_DB_HOST" --silent; do
         echo "Esperando a MariaDB..."
         sleep 2
     done
