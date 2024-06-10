@@ -25,7 +25,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
     # Esperar a que MariaDB esté listo
     echo "Esperando a que MariaDB esté listo..."
-    while ! mysql -h"$WORDPRESS_DB_HOST" -u"$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" -e "status" &>/dev/null; do
+    while ! mysql -h"$WORDPRESS_DB_HOST" -u"$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" -e "status" >/dev/null 2>&1; do
         echo "Esperando a MariaDB..."
         sleep 2
     done
@@ -33,6 +33,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     # Crear el archivo wp-config.php
     echo "Creando wp-config.php..."
     wp config create --path=/var/www/html --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$WORDPRESS_DB_PASSWORD --dbhost=$WORDPRESS_DB_HOST --allow-root
+
+    if [ ! -f /var/www/html/wp-config.php ]; then
+        echo "Error: El archivo wp-config.php no se ha creado."
+        exit 1
+    fi
 
     # Instalar WordPress
     echo "Instalando WordPress..."
