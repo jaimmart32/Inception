@@ -26,12 +26,14 @@ if [ ! -f /var/www/html/wp-config.php ] || is_wp_config_empty; then
     chown -R www-data:www-data /var/www/html
     chmod -R 755 /var/www/html
 
-    # Eliminar wp-config.php si esta vacio
+    # Eliminar wp-config.php si está vacío
     if is_wp_config_empty; then
-        rm /var/www/html/wp-config.php
+        if [ -f /var/www/html/wp-config.php ]; then
+            rm /var/www/html/wp-config.php
+        fi
     fi
 
-    # Descargar WP-CLI
+    # Descargar y extraer WP-CLI
     echo "Descargando WP-CLI..."
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     chmod +x wp-cli.phar
@@ -70,3 +72,4 @@ else
 fi
 
 exec "$@"
+
