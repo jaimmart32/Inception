@@ -4,7 +4,7 @@
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
 
-# Inicializa la base de datos si no esta ya inicializada
+# Inicializa la base de datos si no está ya inicializada
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Inicializando base de datos..."
     mysqld --initialize-insecure --user=mysql
@@ -17,12 +17,15 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     sleep 5
 
     # Crear la base de datos y el usuario para WordPress
+    echo "Creando base de datos y usuario para WordPress..."
     mysql -uroot <<-EOSQL
         CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
         CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
         GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
         FLUSH PRIVILEGES;
 EOSQL
+
+    echo "Base de datos y usuario creados."
     
     # Detener el servidor MariaDB
     mysqladmin -uroot shutdown

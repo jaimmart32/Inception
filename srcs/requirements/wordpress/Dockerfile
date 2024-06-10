@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     iputils-ping \
-    mariadb-client \
+    mysql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
