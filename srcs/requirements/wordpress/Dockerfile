@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     unzip \
+    rsync \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +18,7 @@ RUN mkdir -p /var/www/html /run/php
 RUN curl -O https://wordpress.org/latest.tar.gz \
     && tar -xzvf latest.tar.gz \
     && rm latest.tar.gz \
-    && mv wordpress/* /var/www/html/ \
+    && rsync -a wordpress/ /var/www/html/ \
     && rm -rf wordpress \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
