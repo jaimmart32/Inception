@@ -13,20 +13,18 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir -p /var/www/html /run/php
 
-# Descargar y configurar WordPress
-RUN curl -O https://wordpress.org/latest.tar.gz \
-    && tar -xzvf latest.tar.gz \
-    && rm latest.tar.gz \
-    && cp -r wordpress/* /var/www/html/ \
-    && rm -rf wordpress \
-    && chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Copiar el script de entrada
+COPY ./conf/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Configurar PHP-FPM
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 # Exponer el puerto en el que PHP-FPM escucha, 9000 es el puerto predeterminado donde PHP-FPM escucha las solicitudes FastCGI
 EXPOSE 9000
+
+# Usar el script de entrada
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 
 # Comando para iniciar PHP-FPM, -F indica a PHP-FPM que se ejecute en primer plano(no daemon) para que el proceso permanezca activo
 CMD ["php-fpm7.4", "-F"]
