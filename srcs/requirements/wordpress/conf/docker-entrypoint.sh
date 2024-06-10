@@ -6,8 +6,17 @@ echo "Inicio del script de entrada de WordPress..."
 # Crear el directorio /var/www/html si no existe
 mkdir -p /var/www/html
 
+# Función para verificar si el archivo wp-config.php está vacío
+is_wp_config_empty() {
+    if [ ! -s /var/www/html/wp-config.php ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Descargar y configurar WordPress si no está ya configurado
-if [ ! -f /var/www/html/wp-config.php ]; then
+if [ ! -f /var/www/html/wp-config.php ] || is_wp_config_empty; then
     echo "Descargando y configurando WordPress..."
     curl -O https://wordpress.org/latest.tar.gz
     tar -xzvf latest.tar.gz
@@ -34,10 +43,15 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Creando wp-config.php..."
     wp config create --path=/var/www/html --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$WORDPRESS_DB_PASSWORD --dbhost=$WORDPRESS_DB_HOST --allow-root
 
-    if [ ! -f /var/www/html/wp-config.php ]; then
+    if [ -s /var/www/html/wp-config.php ]; then
+        echo "wp-config.php creado correctamente."
+    else
         echo "Error: El archivo wp-config.php no se ha creado."
         exit 1
     fi
+
+    # Mostrar contenido de wp-config.php para depuración
+    cat /var/www/html/wp-config.php
 
     # Instalar WordPress
     echo "Instalando WordPress..."
