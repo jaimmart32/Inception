@@ -1,5 +1,7 @@
+# Global server settings
 [server]
 
+# Settings especificos a MariaDB server
 [mysqld]
 
 user                    = mysql
@@ -23,3 +25,20 @@ collation-server      = utf8mb4_general_ci
 [mariadb]
 
 [mariadb-10.11]
+
+# user: Indica que el servidor MariaDB se ejecutará bajo el usuario 'mysql'.
+# pid-file: Especifica la ubicación del archivo que contiene el ID del proceso del servidor.
+# socket: Define la ubicación del archivo de socket utilizado para las conexiones locales.
+# port: Especifica el puerto en el cual el servidor escucha para conexiones entrantes (3306 es el puerto predeterminado de MySQL/MariaDB).
+# basedir: El directorio base para los archivos binarios de MariaDB.
+# datadir: El directorio donde se almacenan los archivos de la base de datos.
+# tmpdir: El directorio utilizado para archivos temporales.
+# lc-messages-dir: El directorio para archivos de mensajes y de idiomas.
+# bind-address: Permite que el servidor acepte conexiones desde cualquier dirección IP. 0.0.0.0 significa que el servidor escuchará en todas las interfaces de red disponibles.
+# expire_logs_days: Configura el servidor para eliminar automáticamente los registros binarios que tengan más de 10 días.
+# character-set-server: Define el conjunto de caracteres predeterminado del servidor a utf8mb4, que soporta caracteres Unicode.
+# collation-server: Define la intercalación predeterminada (ordenamiento de caracteres) del servidor a utf8mb4_general_ci.
+#
+# En cuanto al nombre del archivo de configuración, no es estrictamente necesario que se llame "50-server.cnf", pero es una convención 
+# común que se sigue para mantener un orden y facilitar la gestión de múltiples archivos de configuración. MariaDB carga los archivos 
+# de configuración en un orden específico, y los archivos numerados ayudan a controlar este orden de carga.
