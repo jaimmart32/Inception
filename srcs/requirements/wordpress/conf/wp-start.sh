@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Verificar la disponibilidad de MariaDB
+while ! mysqladmin ping -h"$WORDPRESS_DB_HOST" --silent; do
+    echo "Waiting for MariaDB..."
+    sleep 2
+done
+
 # Comprueba si el archivo wp-config.php ya existe. 
 # Esto se usa para determinar si WordPress ya está instalado.
 if [ -f ./wp-config.php ]

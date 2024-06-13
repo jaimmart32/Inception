@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  db:
+  mariadb:
     build:
       context: ./requirements/mariadb
     container_name: mariadb
@@ -29,7 +29,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      - mariadb
     restart: always
 
   nginx:
