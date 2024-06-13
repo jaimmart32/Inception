@@ -48,7 +48,17 @@ services:
 
 volumes:
   wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/jaimmart/data/wordpress_data
   db_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/jaimmart/data/db_data
 
 networks:
   wp-network:
