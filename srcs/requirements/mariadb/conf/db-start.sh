@@ -18,6 +18,7 @@ if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     rm -f "$MYSQL_INIT_FILE"
     # echo ... >> "$MYSQL_INIT_FILE": Añade comandos SQL al archivo de inicialización para crear la base de datos, crear 
     # un usuario con los permisos adecuados y establecer la contraseña del usuario root.
+    echo "CREATING DATABASE, USERS and PASSWORDS..."
     echo "CREATE DATABASE $MYSQL_DATABASE;" >> "$MYSQL_INIT_FILE"
     echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> "$MYSQL_INIT_FILE"
     echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';" >> "$MYSQL_INIT_FILE"
